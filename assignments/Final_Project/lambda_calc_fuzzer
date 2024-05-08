@@ -1,0 +1,38 @@
+import random
+
+# Define the alphabet for lambda calculus expressions
+ALPHABET = ['x', 'y', 'z', 'a', 'b', 'c']
+
+# Define the maximum depth of nested expressions
+MAX_DEPTH = 5
+
+def generate_lambda(depth):
+    if depth <= 0:
+        # Base case: return a variable
+        return random.choice(ALPHABET)
+    else:
+        # Recursive case: generate a lambda expression
+        return '(λ' + random.choice(ALPHABET) + '.' + generate_lambda(depth - 1) + ')'
+
+def generate_application(depth):
+    if depth <= 0:
+        # Base case: return a variable
+        return random.choice(ALPHABET)
+    else:
+        # Recursive case: generate an application expression
+        return '(' + generate_application(depth - 1) + ' ' + generate_application(depth - 1) + ')'
+
+def generate_expression():
+    # Randomly choose between lambda abstraction and application
+    if random.random() < 0.5:
+        return generate_lambda(MAX_DEPTH)
+    else:
+        return generate_application(MAX_DEPTH)
+
+def main():
+    # Generate and print a lambda calculus expression
+    expression = generate_expression()
+    print("Generated Lambda Calculus Function:", expression)
+
+if __name__ == "__main__":
+    main()
